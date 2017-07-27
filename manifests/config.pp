@@ -3,6 +3,7 @@ class exhibitor::config(
   $install_dir = $exhibitor::install_dir,
   $zk_data_dir = $exhibitor::zk_data_dir,
   $zk_log_dir = $exhibitor::zk_log_dir,
+  $zk_install_dir = $exhibitor::zk_install_dir,
 
   $auto_manage_instances = $exhibitor::auto_manage_instances,
   ){

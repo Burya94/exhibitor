@@ -14,4 +14,3 @@ class exhibitor::running(){
     require => File['/etc/systemd/system/exhibitor.service']
   }
 }
-}
