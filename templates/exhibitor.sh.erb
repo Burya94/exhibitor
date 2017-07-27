@@ -1,5 +1,8 @@
+#!/bin/sh
 #managed by puppet
-#/etc/default/exhibitor
+
+NAME=exhibitor
+PID_FILE=/var/run/$NAME.pid
 
 EXHIBITOR_HOME="<%= @install_dir %>"
 
@@ -9,3 +12,5 @@ EXHIBITOR_OPTS="<%- @defaultfile_opts.sort.each do |k,v|
 <%-
   end
 end -%>"
+
+/bin/java -jar ${EXHIBITOR_HOME}/exhibitor-<%= scope.lookupvar('::exhibitor::version') %>.jar ${EXHIBITOR_OPTS} &

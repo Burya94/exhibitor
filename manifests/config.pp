@@ -22,6 +22,14 @@ class exhibitor::config(
     owner   => 'root',
     group   => 'root',
     content => template('exhibitor/exhibitor.properties.erb'),
-    notify  => Class['exhibitor::service'],
+    notify  => Class['exhibitor::running'],
+}
+  file { "${install_dir}/ex.cred":
+    ensire => present,
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
+    content => template('exhibitor/ex.cred'),
+    require => File['/etc/default/exhibitor']
 }
 }
