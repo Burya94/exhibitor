@@ -1,4 +1,6 @@
-class exhibitor::running(){
+class exhibitor::running(
+    $defaultfile_opts = $exhibitor::defaultfile_opts
+    ){
 
   file { '/etc/systemd/system/exhibitor.service':
     ensure  => present,

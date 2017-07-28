@@ -8,7 +8,7 @@ class exhibitor(
       'configtype'  => 's3',
       's3region'    => 'us-east-1',
       's3config'    => 'puppet_bucket_test:exhibitor',
-      's3credentials'=> '${install_dir}/ex.cred',
+      's3credentials'=> 'ex.cred',
       'hostname'    =>  $fqdn,
       },
     $zk_data_dir = '/var/lib/zookeeper/',

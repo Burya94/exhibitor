@@ -3,8 +3,8 @@ Description=Exhibitor service
 
 [Service]
 Type=oneshot
-ExecStart=/opt/exhibitor/exhibitor.sh
+ExecStart=/opt/exhibitor/exhibitor.sh start
 StandardOutput=journal
-ExecStop=kill %1
+ExecStop=/opt/exhibitor/exhibitor.sh stop
 
 [Install]

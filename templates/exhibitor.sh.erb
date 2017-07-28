@@ -4,8 +4,6 @@
 NAME=exhibitor
 PID_FILE=/var/run/$NAME.pid
 
-EXHIBITOR_HOME="<%= @install_dir %>"
-
 EXHIBITOR_OPTS="<%- @defaultfile_opts.sort.each do |k,v|
   if v.length != 0 -%>
  --<%= k %> <%= "\\\"#{v}\\\"" -%>
@@ -13,4 +11,25 @@ EXHIBITOR_OPTS="<%- @defaultfile_opts.sort.each do |k,v|
   end
 end -%>"
 
-/bin/java -jar ${EXHIBITOR_HOME}/exhibitor-<%= scope.lookupvar('::exhibitor::version') %>.jar ${EXHIBITOR_OPTS} &
+function _start(){
+    cd /opt/exhibitor/
+    /bin/java -jar exhibitor-<%= scope.lookupvar('::exhibitor::version') %>.jar ${EXHIBITOR_OPTS} &
+    echo $! > $PID_FILE
+    
+}
+
+function _stop(){
+    kill -INT `cat $PID_FILE`
+}
+
+
+
+case $1 in
+    "start")
+        _start()
+        echo "Process starting"
+        ;;
+    "stop")
+        _stop()
+        echo "Process stopping"
+        ;;

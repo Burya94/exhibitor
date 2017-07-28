@@ -9,13 +9,6 @@ class exhibitor::config(
   ){
   require exhibitor::install
 
-  file { '/etc/default/exhibitor':
-    ensure  => present,
-    mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
-    content => template('exhibitor/exhibitor_options.erb')
-  }
   file { "${install_dir}/exhibitor.properties":
     ensure  => present,
     mode    => '0644',
@@ -25,11 +18,11 @@ class exhibitor::config(
     notify  => Class['exhibitor::running'],
 }
   file { "${install_dir}/ex.cred":
-    ensire => present,
+    ensure => present,
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
-    content => template('exhibitor/ex.cred'),
-    require => File['/etc/default/exhibitor']
+    content => template('exhibitor/ex.cred.erb'),
+    require => Exec['build-exhibitor']
 }
 }
