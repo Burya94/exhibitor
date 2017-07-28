@@ -4,18 +4,13 @@
 NAME=exhibitor
 PID_FILE=/var/run/$NAME.pid
 
-EXHIBITOR_OPTS="<%- @defaultfile_opts.sort.each do |k,v|
-  if v.length != 0 -%>
- --<%= k %> <%= "\\\"#{v}\\\"" -%>
-<%-
-  end
-end -%>"
+
 
 function _start(){
     cd /opt/exhibitor/
-    /bin/java -jar exhibitor-<%= scope.lookupvar('::exhibitor::version') %>.jar ${EXHIBITOR_OPTS} &
+    /bin/java -jar exhibitor-<%= scope.lookupvar('::exhibitor::version') %> -c <%= scope.lookupvar('::exhibitor::configtype')%> --defaultconfig exhibitor.properties --s3credentials <%= scope.lookupvar('::exhibitor::s3credentials')%> --s3region <%= scope.lookupvar('::exhibitor::s3region')%> --s3config <%= scope.lookupvar('::exhibitor::s3config')%> --hostname <%= scope.lookupvar('::exhibitor::hostname ')%>
     echo $! > $PID_FILE
-    
+
 }
 
 function _stop(){
