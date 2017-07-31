@@ -8,13 +8,13 @@ PID_FILE=/var/run/$NAME.pid
 
 function _start(){
     cd /opt/exhibitor/
-    $JAVA_HOME/bin/java -jar exhibitor-<%= scope.lookupvar('::exhibitor::version').jar %> -c <%= scope.lookupvar('::exhibitor::configtype')%> --defaultconfig exhibitor.properties --s3credentials <%= scope.lookupvar('::exhibitor::s3credentials')%> --s3region <%= scope.lookupvar('::exhibitor::s3region')%> --s3config <%= scope.lookupvar('::exhibitor::s3config')%> --hostname <%= scope.lookupvar('::exhibitor::hostname ')%>  >> / var/log/exhibitor.log 2>&1 &
+    ${JAVA_HOME}bin/java -jar exhibitor-<%= scope.lookupvar('::exhibitor::version')%>.jar -c <%= scope.lookupvar('::exhibitor::configtype')%> --defaultconfig exhibitor.properties --s3credentials <%= scope.lookupvar('::exhibitor::s3credentials')%> --s3region <%= scope.lookupvar('::exhibitor::s3region')%> --s3config <%= scope.lookupvar('::exhibitor::s3config')%> --hostname <%= scope.lookupvar('::exhibitor::hostname')%>  >> /var/log/exhibitor.log 2>&1 &
     echo $! > $PID_FILE
     exit 0
 }
 
 function _stop(){
-    kill -2 `cat $PID_FILE`
+    kill -9 `cat $PID_FILE`
     exit 0
 }
 
