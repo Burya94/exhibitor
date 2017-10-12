@@ -17,12 +17,4 @@ class exhibitor::config(
     content => template('exhibitor/exhibitor.properties.erb'),
     notify  => Class['exhibitor::running'],
 }
-  file { "${install_dir}/ex.cred":
-    ensure => present,
-    mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
-    content => template('exhibitor/ex.cred.erb'),
-    require => Exec['build-exhibitor']
-}
 }
